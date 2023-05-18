@@ -1,0 +1,53 @@
+= Nginx
+
+https://www.nginx.com/resources/wiki/start/topics/examples/server_blocks/
+https://docs.nginx.com/nginx/admin-guide/web-server/reverse-proxy/
+
+nginx.conf
+
+----
+    server {
+        listen 6080;
+        listen [::]:6080;
+
+        root /var/www/prometheus.internal-lab.net/html;
+        index index.html index.htm index.nginx-debian.html;
+
+        server_name prometheus.internal-lab.net;
+        access_log  /var/log/nginx/prometheus.internal-lab.net.log  main;
+
+        location / {
+            proxy_pass http://localhost:9090/;
+        }
+    }
+
+    server {
+        listen 6080;
+        listen [::]:6080;
+
+        root /var/www/grafana.internal-lab.net/html;
+        index index.html index.htm index.nginx-debian.html;
+
+        server_name grafana.internal-lab.net;
+        access_log  /var/log/nginx/grafana.internal-lab.net.log  main;
+
+        location / {
+            proxy_pass http://localhost:3000/;
+        }
+    }
+
+    server {
+        listen 6080;
+        listen [::]:6080;
+
+        root /var/www/freeipa.internal-lab.net/html;
+        index index.html index.htm index.nginx-debian.html;
+
+        server_name freeipa.internal-lab.net;
+        access_log  /var/log/nginx/freeipa.internal-lab.net.log  main;
+
+        location / {
+            proxy_pass http://localhost/;
+        }
+
+----
