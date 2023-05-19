@@ -1,4 +1,4 @@
-name: Homelab
+name: homelab
 title: Homelab
 version: alpha
 start_page: ansible.adoc

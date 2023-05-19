@@ -6,7 +6,6 @@
 * xref:kvm_virsh.adoc[]
 * xref:networking.adoc[]
 * xref:nginx.adoc[]
-* xref:nginx.adoc[]
 * xref:rpm.adoc[]
 * monitoring
 ** xref:monitoring/blackbox_exporter.adoc[]
