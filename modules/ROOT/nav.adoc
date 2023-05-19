@@ -9,8 +9,8 @@
 * xref:nginx.adoc[]
 * xref:rpm.adoc[]
 * monitoring
-** xref:blackbox_exporter.adoc[]
-** xref:grafana.adoc[]
-** xref:haproxy.adoc[]
-** xref:node_exporter.adoc[]
-** xref:prometheus.adoc[]
+** xref:monitoring/blackbox_exporter.adoc[]
+** xref:monitoring/grafana.adoc[]
+** xref:monitoring/haproxy.adoc[]
+** xref:monitoring/node_exporter.adoc[]
+** xref:monitoring/prometheus.adoc[]
