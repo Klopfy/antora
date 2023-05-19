@@ -7,7 +7,7 @@
 * xref:networking.adoc[]
 * xref:nginx.adoc[]
 * xref:rpm.adoc[]
-* monitoring
+* Monitoring
 ** xref:monitoring/blackbox_exporter.adoc[]
 ** xref:monitoring/grafana.adoc[]
 ** xref:monitoring/haproxy.adoc[]

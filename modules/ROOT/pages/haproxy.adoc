@@ -5,6 +5,11 @@ Links:
 * https://www.haproxy.com/documentation/hapee/latest/configuration/config-sections/frontend/#using-conditionals-to-forward-traffic-to-different-backends
 * https://www.youtube.com/playlist?list=PLn6POgpklwWpOWOqgYItvBrf7Izu-MMQW
 
+== Test video
+
+.Haproxy - 01. What is it ? introduction
+video::inVviPzjIVU[youtube]
+
 .haproxy.cfg
 [source]
 ----
