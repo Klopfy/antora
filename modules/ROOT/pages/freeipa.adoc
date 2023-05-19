@@ -54,18 +54,14 @@ Reverse zone(s):  No reverse zone
 
 == Free IPA Command
 
-* 
-
-Install ipa-client
+* Install ipa-client
 
 [source,bash]
 ----
 yum install ipa-client
 ----
 
-* 
-
-Start onboarding from clinet
+* Start onboarding from clinet
 
 ----
 ipa-client-install --domain=internal-lab.net --server=citools.internal-lab.net --realm=INTERNAL-LAB.NET
@@ -73,9 +69,7 @@ ipa-client-install --domain=internal-lab.net --server=citools.internal-lab.net -
 
 * Automating ipa-client-install command
 
-* 
-
-On IPA Server:
+* On IPA Server:
 
 [source,bash]
 ----
@@ -83,23 +77,17 @@ ipa -v host-add test.internal-lab.net --password=secret --ip-address=1.1.1.1
 ----
 
 ____
-
 An IP address is required but it does not need to resolv and it will be updated in real client onboarding: ipa: WARNING: The host was added but the DNS update failed with: All nameservers failed to answer the query for DNS reverse zone 1.1.1.1.in-addr.arpa.
-
 ____
 
-* 
-
-On Client Host
+* On Client Host
 
 [source,bash]
 ----
 ipa-client-install --domain=internal-lab.net --server=citools.internal-lab.net --realm=INTERNAL-LAB.NET --enable-dns-updates --mkhomedir -w secret --unattended
 ----
 
-* 
-
-Remove a host from freeipa server
+* Remove a host from freeipa server
 
 [source,bash]
 ----
@@ -119,7 +107,9 @@ sed -i "s#/usr/sbin/ipa-client-install --hostname=.*#/usr/sbin/ipa-client-instal
 ----
 
 * Kickstart file: https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/installing_identity_management/installing-an-ipa-client-with-kickstart_installing-identity-management#kickstart-file-for-client-installation_client-kickstart
-```
+
+[source]
+----
 %post –log=/root/ks-post.log
 
 = Generate SSH keys; ipa-client-install uploads them to the IdM server by default
@@ -131,7 +121,6 @@ sed -i "s#/usr/sbin/ipa-client-install --hostname=.*#/usr/sbin/ipa-client-instal
 /usr/sbin/ipa-client-install –hostname=test.internal-lab.net –domain=internal-lab.net –enable-dns-updates –mkhomedir -w secret –realm=INTERNAL-LAB.NET –server=citools.internal-lab.net –unattended
 
 %end
-
 ----
 
 ## Additionnal
@@ -141,35 +130,36 @@ sed -i "s#/usr/sbin/ipa-client-install --hostname=.*#/usr/sbin/ipa-client-instal
 FreeIPA is also a DNS Server. Here is the configuration used on ubuntu to add freeipa DNS resolver
 
 * Set a additional DNS server in Ubunutu: https://www.tecmint.com/set-permanent-dns-nameservers-in-ubuntu-debian/
-----
 
+[source,bash]
+----
 sudo apt install resolvconf
 systemctl status resolvconf.service
 systemctl enable resolvconf.service
-
 ----
 
 * Add your entries in: /etc/resolvconf/resolv.conf.d/head
+
+[source,bash]
 ----
-
 nameserver 192.168.100.177
-
 ----
 
 * Restart the service
+
+[source,bash]
 ----
-
 systemctl restart resolvconf.service
-
 ----
 
 ## Issues enountered
 
 * Module issue! Have to enable DL1 module to find ipa package
-----
 
+[source,bash]
+----
 yum module info idm:DL1
 yum -y install @idm:DL1
 
 dnf module enable idm:DL1
-```
+----

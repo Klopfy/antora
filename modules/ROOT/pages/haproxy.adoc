@@ -63,9 +63,7 @@ haproxy.cfg
     ssl-dh-param-file /etc/haproxy/dhparams.pem
 ----
 
-* 
-
-Available HAProxy from Centos Repo is 1.8 and not 2.X+
+* Available HAProxy from Centos Repo is 1.8 and not 2.X+
 ** Had to reuse old grafana dashboard
 ** Had to reuse old alerting rule and had some issues importing them
 

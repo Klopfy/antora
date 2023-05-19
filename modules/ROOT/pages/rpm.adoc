@@ -6,27 +6,21 @@
 rpm -ivh <package_name>
 ----
 
-* 
-
-List all installed rpm
+* List all installed rpm
 
 [source,bash]
 ----
 rpm -qa
 ----
 
-* 
-
-List all files related to a package
+* List all files related to a package
 
 [source,bash]
 ----
 rpm -ql <package_name>
 ----
 
-* 
-
-Find package related to a file if any
+* Find package related to a file if any
 
 [source,bash]
 ----

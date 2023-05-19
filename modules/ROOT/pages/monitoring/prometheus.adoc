@@ -1,6 +1,7 @@
 = Prometheus
 
 Links:
+
 * https://prometheus.io/[Prometheus official site]
 * https://prometheus.io/download/[Download link]
 * https://prometheus.io/docs/prometheus/latest/configuration/alerting_rules/[Alerting rule documentation]
@@ -25,20 +26,23 @@ systemctl daemon-reload
 systemctl start prometheus
 systemctl status prometheus
 systemctl enable prometheus
-
 ----
 
 == Configuration files
 
 * prometheus/prometheus.yml
-```yaml
-* job_name: 'node_exporter'
-static_configs:
-** targets: ['monitoring.internal-lab.net:9100']
-** targets: ['laptop.internal-lab.net:9100']
-```
+
+[source,yaml]
+----
+  - job_name: 'node_exporter'
+    static_configs:
+    - targets: ['monitoring.internal-lab.net:9100']
+    - targets: ['laptop.internal-lab.net:9100']
+----
+
 * /etc/systemd/system/prometheus.service
-```toml
+[source,toml]
+----
 [Unit]
 Description=Prometheus Server
 Documentation=https://prometheus.io/docs/introduction/overview/
@@ -47,18 +51,15 @@ After=network-online.target
 
 [Service]
 User=prometheus
-
-= Restart=on-failure
-
+#Restart=on-failure
 Type=simple
 
 ExecStart=/home/prometheus/prometheus/prometheus \
- –config.file=/home/prometheus/prometheus/prometheus.yml \
- –storage.tsdb.path=/home/prometheus/prometheus/data
+  --config.file=/home/prometheus/prometheus/prometheus.yml \
+  --storage.tsdb.path=/home/prometheus/prometheus/data
 
 [Install]
 WantedBy=multi-user.target
-
 ----
 
 ## Alerting Rules
@@ -71,25 +72,23 @@ There are community shared rules available here at [Awesome alerting rule](https
 * [Node Exporter Awesome Alerting Rule](https://awesome-prometheus-alerts.grep.to/rules#host-and-hardware)
 
 `prometheus.yml`
+
+[source,yaml]
 ----
-
-= Load rules once and periodically evaluate them according to the global 'evaluation_interval'.
-
+# Load rules once and periodically evaluate them according to the global 'evaluation_interval'.
 rule_files:
- - node-exporter_rules.yml
-
+    - node-exporter_rules.yml
 ----
 
 `node-exporter_rules.yml`
+
+[source,yaml]
 ----
-
-= Load rules once and periodically evaluate them according to the global 'evaluation_interval'.
-
+# Load rules once and periodically evaluate them according to the global 'evaluation_interval'.
 groups:
 - name: node-exporter
- rules:
-[alert rules]
-
+  rules:
+    [...]
 ----
 
 ## Issues encountered
@@ -101,17 +100,18 @@ groups:
 3. No official RPM package (yum/rpm repo) exists for Prometheus
 4. SELinux issues when starting systemd service
 
+
+[source,bash]
+----
+audit2why &lt; /var/log/audit/audit.log
 ----
 
-audit2why &lt; /var/log/audit/audit.log
-
+[source]
+----
 type=AVC msg=audit(1640832363.362:530): avc: denied { name_connect } for pid=18796 comm="prometheus" dest=9090 scontext=system_u:system_r:init_t:s0 tcontext=system_u:object_r:websm_port_t:s0 tclass=tcp_socket permissive=1
 
-----
 Was caused by:
     Missing type enforcement (TE) allow rule.
 
     You can use audit2allow to generate a loadable module to allow this access.
 ----
-
-```

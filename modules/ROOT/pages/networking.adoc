@@ -7,9 +7,7 @@ nmcli connection show --active
 
 WARNING: Not working with wifi interface - Not able to bridge wifi
 
-* 
-
-Create a new bridge interface
+* Create a new bridge interface
 
 [source,bash]
 ----
@@ -23,27 +21,21 @@ Voir connection sur bridge
 brctl show
 ----
 
-* 
-
-Link our new bridge to our physical interface
+* Link our new bridge to our physical interface
 
 [source,bash]
 ----
 nmcli connection add type bridge-slave ifname wlp59s0 master br0
 ----
 
-* 
-
-Get Info
+* Get Info
 
 [source,bash]
 ----
 nmcli -f bridge connection show bridge-br0
 ----
 
-* 
-
-Bring the interface up
+* Bring the interface up
 
 [source,bash]
 ----

@@ -7,9 +7,9 @@ Links:
 * https://grafana.com/grafana/dashboards/7587[Example of Grafana blackbox dashboard]
 * https://www.youtube.com/watch?v=uQCg8WA9zm4[Xavki Tutorial video]
 
-= Installation
+== Installation
 
-== Bash installation commands
+=== Bash installation commands
 
 [source,bash]
 ----
@@ -24,29 +24,27 @@ vi /etc/systemd/system/blackbox_exporter.service
 systemctl daemon-reload
 systemctl start blackbox_exporter
 systemctl status blackbox_exporter
-
 ----
 
 == Configuration file
 
-* 
-
-blackbox_exporter/blackbox.yml
+* blackbox_exporter/blackbox.yml
 
 [source,yaml]
 ----
 modules:
   http_2xx:
-prober: http
-timeout: 5s
-http:
-  valid_http_versions: ["HTTP/1.1", "HTTP/2.0"]
-  valid_status_codes: [] # Defaults to 2xx
-  method: GET
+    prober: http
+    timeout: 5s
+    http:
+      valid_http_versions: ["HTTP/1.1", "HTTP/2.0"]
+      valid_status_codes: [] # Defaults to 2xx
+      method: GET
 ----
 
 * /etc/systemd/system/blackbox_exporter.service
-```toml
+[source,toml]
+----
 [Unit]
 Description=Blackbox Exporter
 After=network-online.target
@@ -55,39 +53,38 @@ After=network-online.target
 User=blackbox_exporter
 Group=blackbox_exporter
 Type=simple
-ExecStart=/home/blackbox_exporter/blackbox_exporter/blackbox_exporter –config.file /home/blackbox_exporter/blackbox_exporter/blackbox.yml
+ExecStart=/home/blackbox_exporter/blackbox_exporter/blackbox_exporter --config.file /home/blackbox_exporter/blackbox_exporter/blackbox.yml
 
 [Install]
 WantedBy=multi-user.target
-
 ----
 
 * prometheus/prometheus.yml
+
+[source,yaml]
+----
+  - job_name: 'blackbox'
+    metrics_path: /probe
+    params:
+      module: [http_2xx]  # Look for a HTTP 200 response.
+    static_configs:
+      - targets:
+        - http://prometheus.internal-lab.net:6080
+        - http://grafana.internal-lab.net:6080
+        - http://freeipa.internal-lab.net:6080
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+      - source_labels: [__param_target]
+        target_label: instance
+      - target_label: __address__
+        replacement: 127.0.0.1:9115  # The blackbox exporter's real hostname:port.
 ----
 
-* job_name: 'blackbox'
-metrics_path: /probe
-params:
- module: [http_2xx] # Look for a HTTP 200 response.
-static_configs:
-** targets:
-*** http://prometheus.internal-lab.net:6080
-*** http://grafana.internal-lab.net:6080
-*** http://freeipa.internal-lab.net:6080
-relabel_configs:
-** source_labels: [*address*]
-target_label: __param_target
-
-** source_labels: [__param_target]
-target_label: instance
-** target_label: *address*
-replacement: 127.0.0.1:9115 # The blackbox exporter's real hostname:port.
-```
-
-= Prometheus Alerting Rule
+== Prometheus Alerting Rule
 
 https://awesome-prometheus-alerts.grep.to/rules#blackbox
 
-= Grafana
+== Grafana
 
 Grafana Dashboard: https://grafana.com/grafana/dashboards/7587[7587]

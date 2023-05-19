@@ -5,6 +5,7 @@ https://docs.nginx.com/nginx/admin-guide/web-server/reverse-proxy/
 
 nginx.conf
 
+[source]
 ----
     server {
         listen 6080;
@@ -49,5 +50,4 @@ nginx.conf
         location / {
             proxy_pass http://localhost/;
         }
-
 ----

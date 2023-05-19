@@ -1,6 +1,7 @@
 = Node exporter
 
 Links:
+
 * https://prometheus.io/download/#node_exporter[Prometheus Node Exporter download link]
 * https://github.com/prometheus/node_exporter[Node Exporter Github]
 * https://grafana.com/grafana/dashboards/1860[Example of Node Exporter Grafana Dashboard]
@@ -30,7 +31,9 @@ firewall-cmd --reload
 == Config files
 
 * /etc/systemd/system/node_exporter.service
-```toml
+
+[source,toml]
+----
 [Unit]
 Description=Node Exporter
 Wants=network-online.target
@@ -42,32 +45,30 @@ ExecStart=/home/node_exporter/node_exporter/node_exporter
 
 [Install]
 WantedBy=default.target
-
 ----
 
 ## Installation of node-exporter rules
 
 In prometheus:
+
 * prometheus.yml
+
+[source,yaml]
 ----
-
-= Load rules once and periodically evaluate them according to the global 'evaluation_interval'.
-
+# Load rules once and periodically evaluate them according to the global 'evaluation_interval'.
 rule_files:
- - node-exporter_rules.yml
-
+    - node-exporter_rules.yml
 ----
 
 * node-exporter_rules.yml
+
+[source,yaml]
 ----
-
-= Load rules once and periodically evaluate them according to the global 'evaluation_interval'.
-
+# Load rules once and periodically evaluate them according to the global 'evaluation_interval'.
 groups:
 - name: node-exporter
- rules:
-[alert rules]
-
+  rules:
+    [...]
 ----
 
 Rules can be taken from [awesome alerting rule](https://awesome-prometheus-alerts.grep.to/rules#host-and-hardware)
@@ -76,9 +77,10 @@ Rules can be taken from [awesome alerting rule](https://awesome-prometheus-alert
 
 1. No official RPM package (yum/rpm repo) exists for Prometheus exporter
 2. Firewalld to open port 9100
-----
 
+[source,bash]
+----
 firewall-cmd –add-port=9100/tcp –permanent
 firewall-cmd –reload
 firewall-cmd –list-all
-```
+----

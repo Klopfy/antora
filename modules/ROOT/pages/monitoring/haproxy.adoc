@@ -15,7 +15,7 @@ systemctl status haproxy_exporter
 
 /etc/systemd/system/haproxy_exporter.service
 
-[source,bash]
+[source,toml]
 ----
 [Unit]
 Description=HAProxy Exporter
@@ -32,6 +32,7 @@ WantedBy=default.target
 
 /etc/haproxy/haproxy.cfg
 
+[source]
 ----
 frontend stats
     bind *:8404
