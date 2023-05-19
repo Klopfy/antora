@@ -1,6 +1,7 @@
 = Blackbox exporter
 
 Links:
+
 * https://prometheus.io/download/#blackbox_exporter[Prometheus Blackbox download link]
 * https://github.com/prometheus/blackbox_exporter[Blackbox exporter Github]
 * https://awesome-prometheus-alerts.grep.to/rules#blackbox[BlackBox awesome alerting rule]

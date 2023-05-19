@@ -1,4 +1,7 @@
+= Networking
+
 * Check interfaces with nmcli
+
 [source,bash]
 ----
 nmcli connection show

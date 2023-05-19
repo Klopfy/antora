@@ -22,8 +22,7 @@ sudo systemctl enable grafana-server
 
 === Yum Repo installation
 
-*  /etc/yum.repos.d/grafana.repo
-
+./etc/yum.repos.d/grafana.repo
 [source,toml]
 ----
 [grafana]
@@ -51,10 +50,10 @@ systemctl enable grafana-server
 
 == Data source configuration
 
-* In the UI -&gt; Configuration -&gt; Data Source -&gt; Add Data source
+In the UI, select menu:Configuration[Data Source > Add Data source]
 
 == Dashboard configuration
 
-* In the UI -&gt; Dashboard -&gt; Import -&gt; ID from grafana dashboards or JSON
+In the UI, select menu:Dashboard[Import > ID from grafana dashboards or JSON]
 
 Find shared grafana dashboard here: https://grafana.com/grafana/dashboards/

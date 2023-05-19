@@ -1,5 +1,9 @@
-Quickinstall link: https://theforeman.org/manuals/3.2/quickstart_guide.html
-Manual link: https://theforeman.org/manuals/3.2/index.html
+= Foreman
+
+Links:
+
+* Quickinstall link: https://theforeman.org/manuals/3.2/quickstart_guide.html
+* Manual link: https://theforeman.org/manuals/3.2/index.html
 
 [source,bash]
 ----
@@ -46,21 +50,19 @@ Katello: https://docs.theforeman.org/3.0/Installing_Server_on_Red_Hat/index-kate
 
 [source,bash]
 ----
-yum install foreman-installer-katello
-foreman-installer \
- –puppet-server=false \
- –foreman-proxy-puppet=false \
- –foreman-proxy-puppetca=false
-foreman-installer –scenario katello –help
+yum install foreman-installer-katello foreman-installer
+--puppet-server=false
+--foreman-proxy-puppet=false
+--foreman-proxy-puppetca=false foreman-installer --scenario katello --help
 
-foreman-installer –scenario katello \
- –foreman-initial-organization "Lab" \
- –foreman-initial-location "Laptop" \
- –foreman-initial-admin-username "admin" \
- –foreman-initial-admin-password "100395" \
- –puppet-server=false \
- –foreman-proxy-puppet=false \
- –foreman-proxy-puppetca=false
+foreman-installer --scenario katello
+--foreman-initial-organization "Lab"
+--foreman-initial-location "Laptop"
+--foreman-initial-admin-username "admin"
+--foreman-initial-admin-password "XXXX"
+--puppet-server=false
+--foreman-proxy-puppet=false
+--foreman-proxy-puppetca=false
 ----
 
 * Centos 8 - Katello 4.4
@@ -115,7 +117,7 @@ Upgrade Step 6/8: katello:upgrades:4.1:reupdate_content_import_export_perms. ===
 Upgrade Step 7/8: katello:upgrades:4.2:remove_checksum_values. =============================================
 Upgrade Step 8/8: katello:upgrades:4.4:publish_import_cvvs.   Success!
 * Foreman is running at https://foreman.internal-lab.net
-Initial credentials are admin / 100395
+Initial credentials are admin / XXXX
 * To install an additional Foreman proxy on separate machine continue by running:
 
       foreman-proxy-certs-generate --foreman-proxy-fqdn "$FOREMAN_PROXY" --certs-tar "/root/$FOREMAN_PROXY-certs.tar"
@@ -138,57 +140,59 @@ The full log is at /var/log/foreman-installer/katello.log
 
 [source,bash]
 ----
-39 hammer organization list
- 40 hammer product create –organization-id 1 –name "CentOS 8 Linux for x86_64" –description "Repositories to use with CentOS 8 Linux"
- 45 hammer product list –organization-id 1
- 46 mkdir /etc/pki/rpm-gpg/import/
- 47 cd /etc/pki/rpm-gpg/import/
- 48 wget https://www.centos.org/keys/RPM-GPG-KEY-CentOS-Official
- 62 hammer content-credentials create –content-type gpg_key –organization-id 1 –path RPM-GPG-KEY-CentOS-Official –name "RPM-GPG-KEY-CentOS-8"
-hammer content-credentials list –organization-id 1
-hammer repository create –organization-id 1 –product "CentOS 8 Linux for x86_64" –name "CentOS 8 Base RPMS" –label "CentOS_8_Base_RPMS" –content-type "yum" –download-policy "on_demand" –gpg-key-id 1 –url "http://centos.mirror.liquidtelecom.com/8/BaseOS/x86_64/os/" –mirror-on-sync "no"
-hammer repository list –organization-id 1
-hammer repository delete –product-id 1 –organization-id 1
-hammer repository create –organization-id 1 –product "CentOS 8 Linux for x86_64" –name "CentOS 8 Base RPMS" –label "CentOS_8_Base_RPMS" –content-type "yum" –download-policy "on_demand" –gpg-key-id 1 –url "http://mirror.centos.org/centos/8-stream/BaseOS/x86_64/os/" –mirror-on-sync "no"
+   39  hammer organization list
+   40  hammer product create --organization-id 1   --name "CentOS 8 Linux for x86_64"   --description "Repositories to use with CentOS 8 Linux"
+   45  hammer product list --organization-id 1
+   46  mkdir /etc/pki/rpm-gpg/import/
+   47  cd /etc/pki/rpm-gpg/import/
+   48  wget https://www.centos.org/keys/RPM-GPG-KEY-CentOS-Official
+   62  hammer content-credentials create --content-type gpg_key --organization-id 1 --path RPM-GPG-KEY-CentOS-Official --name "RPM-GPG-KEY-CentOS-8"
+hammer content-credentials list --organization-id 1
+hammer repository create --organization-id 1   --product "CentOS 8 Linux for x86_64"   --name "CentOS 8 Base RPMS"   --label "CentOS_8_Base_RPMS"   --content-type "yum"   --download-policy "on_demand"   --gpg-key-id 1   --url "http://centos.mirror.liquidtelecom.com/8/BaseOS/x86_64/os/"   --mirror-on-sync "no"
+hammer repository list --organization-id 1
+hammer repository delete --product-id 1  --organization-id 1
+hammer repository create --organization-id 1   --product "CentOS 8 Linux for x86_64"   --name "CentOS 8 Base RPMS"   --label "CentOS_8_Base_RPMS"   --content-type "yum"   --download-policy "on_demand"   --gpg-key-id 1   --url "http://mirror.centos.org/centos/8-stream/BaseOS/x86_64/os/"   --mirror-on-sync "no"
 
-117 hammer repository create –organization-id 1 –product "CentOS 8 Linux for x86_64" –name "CentOS 8 AppStream RPMS" –label "CentOS_8_AppStream_RPMS" –content-type "yum" –download-policy "on_demand" –gpg-key-id 1 –url "http://mirror.centos.org/centos/8-stream/AppStream/x86_64/os/" –mirror-on-sync "no"
- 118 hammer repository create –organization-id 1 –product "CentOS 8 Linux for x86_64" –name "CentOS 8 extras RPMS" –label "CentOS_8_extras_RPMS" –content-type "yum" –download-policy "on_demand" –gpg-key-id 1 –url "http://mirror.centos.org/centos/8-stream/extras/x86_64/os/" –mirror-on-sync "no"
- 119 hammer repository create –organization-id 1 –product "CentOS 8 Linux for x86_64" –name "CentOS 8 centosplus RPMS" –label "CentOS_8_centosplus_RPMS" –content-type "yum" –download-policy "on_demand" –gpg-key-id 1 –url "http://mirror.centos.org/centos/8-stream/centosplus/x86_64/os/" –mirror-on-sync "no"
- 120 hammer repository list –organization-id 1 –product "CentOS 8 Linux for x86_64"
- 121 hammer repository create –organization-id 1 –product "CentOS 8 Linux for x86_64" –name "CentOS 8 PowerTools RPMS" –label "CentOS_8_PowerTools_RPMS" –content-type "yum" –download-policy "on_demand" –gpg-key-id 1 –url "http://mirror.centos.org/centos/8-stream/PowerTools/x86_64/os/" –mirror-on-sync "no"
- 122 hammer repository list –organization-id 1 –product "CentOS 8 Linux for x86_64"
- 123 hammer repository synchronize –async –organization-id 1 –product "CentOS 8 Linux for x86_64" –id 3;
- 124 hammer repository synchronize –async –organization-id 1 –product "CentOS 8 Linux for x86_64" –id 4;
- 125 hammer repository synchronize –async –organization-id 1 –product "CentOS 8 Linux for x86_64" –id 5;
- 126 hammer repository synchronize –async –organization-id 1 –product "CentOS 8 Linux for x86_64" –id 6;
- 127 watch 'df -h /var/lib/pulp'
- 128 df -h
- 129 watch 'df -h /var/lib/pulp'
- 130 hammer content-view create –organization-id 1 –name "CentOS_8" –description "Content view for CentOS 8"
- 131 for i in $(seq 64 68); do hammer content-view add-repository –organization-id 1 –name "CentOS_8" –product "CentOS 8 Linux for x86_64" –repository-id "$i"; for i in $(seq 2 6); do hammer content-view add-repository –organization-id 1 –name "CentOS_8" –product "CentOS 8 Linux for x86_64" –repository-id "$i";
- 132 for i in $(seq 2 6); do hammer content-view add-repository –organization-id 1 –name "CentOS_8" –product "CentOS 8 Linux for x86_64" –repository-id "$i"; for i in $(seq 2 6); do hammer content-view add-repository –organization-id 1 –name "CentOS_8" –product "CentOS 8 Linux for x86_64" –repository-id "$i"; done;
- 133 for i in $(seq 2 6); do hammer content-view add-repository –organization-id 1 –name "CentOS_8" –product "CentOS 8 Linux for x86_64" –repository-id "$i"; done
- 134 hammer content-view publish –organization-id 1 –name "CentOS_8" –description "Publishing repositories"
- 135 hammer lifecycle-environment list –organization-id 1
- 136 hammer activation-key create –organization-id 1 –name "centos8" –description "CentOS 8 Activation Key" –lifecycle-environment "Library" –content-view "CentOS_8" –unlimited-hosts
- 137 Ahammer subscription list –organization-id 1
- 138 hammer subscription list –organization-id 1
- 139 hammer activation-key add-subscription –organization-id 1 –name "centos8" –quantity "1" –subscription-id 1
- 140 subscription-manager identity
- 141 rpm -Uvh http://foreman.internal-lab.net/pub/katello-ca-consumer-latest.noarch.rpm
- 142 subscription-manager register –org="Lab" –activationkey="centos8"
+  117  hammer repository create --organization-id 1   --product "CentOS 8 Linux for x86_64"   --name "CentOS 8 AppStream RPMS"   --label "CentOS_8_AppStream_RPMS"   --content-type "yum"   --download-policy "on_demand"   --gpg-key-id 1   --url "http://mirror.centos.org/centos/8-stream/AppStream/x86_64/os/"   --mirror-on-sync "no"
+  118  hammer repository create --organization-id 1   --product "CentOS 8 Linux for x86_64"   --name "CentOS 8 extras RPMS"   --label "CentOS_8_extras_RPMS"   --content-type "yum"   --download-policy "on_demand"   --gpg-key-id 1   --url "http://mirror.centos.org/centos/8-stream/extras/x86_64/os/"   --mirror-on-sync "no"
+  119  hammer repository create --organization-id 1   --product "CentOS 8 Linux for x86_64"   --name "CentOS 8 centosplus RPMS"   --label "CentOS_8_centosplus_RPMS"   --content-type "yum"   --download-policy "on_demand"   --gpg-key-id 1   --url "http://mirror.centos.org/centos/8-stream/centosplus/x86_64/os/"   --mirror-on-sync "no"
+  120  hammer repository list --organization-id 1 --product "CentOS 8 Linux for x86_64"
+  121  hammer repository create --organization-id 1   --product "CentOS 8 Linux for x86_64"   --name "CentOS 8 PowerTools RPMS"   --label "CentOS_8_PowerTools_RPMS"   --content-type "yum"   --download-policy "on_demand"   --gpg-key-id 1   --url "http://mirror.centos.org/centos/8-stream/PowerTools/x86_64/os/"   --mirror-on-sync "no"
+  122  hammer repository list --organization-id 1 --product "CentOS 8 Linux for x86_64"
+  123  hammer repository synchronize --async --organization-id 1   --product "CentOS 8 Linux for x86_64"   --id 3;
+  124  hammer repository synchronize --async --organization-id 1   --product "CentOS 8 Linux for x86_64"   --id 4;
+  125  hammer repository synchronize --async --organization-id 1   --product "CentOS 8 Linux for x86_64"   --id 5;
+  126  hammer repository synchronize --async --organization-id 1   --product "CentOS 8 Linux for x86_64"   --id 6;
+  127  watch 'df -h /var/lib/pulp'
+  128  df -h
+  129  watch 'df -h /var/lib/pulp'
+  130  hammer content-view create --organization-id 1   --name "CentOS_8"   --description "Content view for CentOS 8"
+  131  for i in $(seq 64 68); do   hammer content-view add-repository --organization-id 1   --name "CentOS_8"   --product "CentOS 8 Linux for x86_64"   --repository-id "$i"; for i in $(seq 2 6); do   hammer content-view add-repository --organization-id 1   --name "CentOS_8"   --product "CentOS 8 Linux for x86_64"   --repository-id "$i";
+  132  for i in $(seq 2 6); do   hammer content-view add-repository --organization-id 1   --name "CentOS_8"   --product "CentOS 8 Linux for x86_64"   --repository-id "$i"; for i in $(seq 2 6); do   hammer content-view add-repository --organization-id 1   --name "CentOS_8"   --product "CentOS 8 Linux for x86_64"   --repository-id "$i"; done;
+  133  for i in $(seq 2 6); do   hammer content-view add-repository --organization-id 1   --name "CentOS_8"   --product "CentOS 8 Linux for x86_64"   --repository-id "$i"; done
+  134  hammer content-view publish --organization-id 1   --name "CentOS_8"   --description "Publishing repositories"
+  135  hammer lifecycle-environment list --organization-id 1
+  136  hammer activation-key create --organization-id 1   --name "centos8"   --description "CentOS 8 Activation Key"   --lifecycle-environment "Library"   --content-view "CentOS_8"   --unlimited-hosts
+  137  Ahammer subscription list --organization-id 1
+  138  hammer subscription list --organization-id 1
+  139  hammer activation-key add-subscription --organization-id 1   --name "centos8"   --quantity "1"   --subscription-id 1
+  140  subscription-manager identity
+  141  rpm -Uvh http://foreman.internal-lab.net/pub/katello-ca-consumer-latest.noarch.rpm
+  142  subscription-manager register --org="Lab" --activationkey="centos8"
 
-137 hammer subscription list –organization-id 1
- 138 hammer subscription list –organization-id 1
- 139 hammer activation-key add-subscription –organization-id 1 –name "centos8" –quantity "1" –subscription-id 1
- 140 subscription-manager identity
- 141 rpm -Uvh http://foreman.internal-lab.net/pub/katello-ca-consumer-latest.noarch.rpm
- 142 subscription-manager register –org="Lab" –activationkey="centos8"
+
+  137  hammer subscription list --organization-id 1
+  138  hammer subscription list --organization-id 1
+  139  hammer activation-key add-subscription --organization-id 1   --name "centos8"   --quantity "1"   --subscription-id 1
+  140  subscription-manager identity
+  141  rpm -Uvh http://foreman.internal-lab.net/pub/katello-ca-consumer-latest.noarch.rpm
+  142  subscription-manager register --org="Lab" --activationkey="centos8"
 ----
 
 ## Monitoring
 
 Link:
+
 * https://community.theforeman.org/t/monitoring-foreman-with-prometheus/16466
 * https://community.theforeman.org/t/monitoring-foreman-with-prometheus-via-statsd/21508
 

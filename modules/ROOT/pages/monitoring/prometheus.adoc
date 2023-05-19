@@ -30,8 +30,7 @@ systemctl enable prometheus
 
 == Configuration files
 
-* prometheus/prometheus.yml
-
+.prometheus/prometheus.yml
 [source,yaml]
 ----
   - job_name: 'node_exporter'
@@ -40,7 +39,7 @@ systemctl enable prometheus
     - targets: ['laptop.internal-lab.net:9100']
 ----
 
-* /etc/systemd/system/prometheus.service
+./etc/systemd/system/prometheus.service
 [source,toml]
 ----
 [Unit]
@@ -71,8 +70,7 @@ There are community shared rules available here at [Awesome alerting rule](https
 * [Alerting rule documentation](https://prometheus.io/docs/prometheus/latest/configuration/alerting_rules/)
 * [Node Exporter Awesome Alerting Rule](https://awesome-prometheus-alerts.grep.to/rules#host-and-hardware)
 
-`prometheus.yml`
-
+.prometheus.yml
 [source,yaml]
 ----
 # Load rules once and periodically evaluate them according to the global 'evaluation_interval'.
@@ -80,8 +78,7 @@ rule_files:
     - node-exporter_rules.yml
 ----
 
-`node-exporter_rules.yml`
-
+.node-exporter_rules.yml
 [source,yaml]
 ----
 # Load rules once and periodically evaluate them according to the global 'evaluation_interval'.

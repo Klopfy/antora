@@ -1,3 +1,7 @@
+= Firewalld
+
+== Useful commands
+
 [source,bash]
 ----
 firewall-cmd -h

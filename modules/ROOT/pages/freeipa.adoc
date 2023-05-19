@@ -2,7 +2,7 @@
 
 Tutorial followed: https://computingforgeeks.com/how-to-install-and-configure-freeipa-server-on-rhel-centos-8/
 
-== Prerequisits
+== Prerequisites
 
 FreeIPA Server installation requirements
 * Server with 4gb ram – I got failed installations for 1GB and 2GB RAM
@@ -110,15 +110,13 @@ sed -i "s#/usr/sbin/ipa-client-install --hostname=.*#/usr/sbin/ipa-client-instal
 
 [source]
 ----
-%post –log=/root/ks-post.log
+%post --log=/root/ks-post.log
 
-= Generate SSH keys; ipa-client-install uploads them to the IdM server by default
-
+# Generate SSH keys; ipa-client-install uploads them to the IdM server by default
 /usr/libexec/openssh/sshd-keygen rsa
 
-= Run the client install script
-
-/usr/sbin/ipa-client-install –hostname=test.internal-lab.net –domain=internal-lab.net –enable-dns-updates –mkhomedir -w secret –realm=INTERNAL-LAB.NET –server=citools.internal-lab.net –unattended
+# Run the client install script
+/usr/sbin/ipa-client-install --hostname=test.internal-lab.net --domain=internal-lab.net --enable-dns-updates --mkhomedir -w secret --realm=INTERNAL-LAB.NET --server=citools.internal-lab.net --unattended
 
 %end
 ----

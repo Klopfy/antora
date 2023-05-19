@@ -1,10 +1,11 @@
 = Nginx
 
-https://www.nginx.com/resources/wiki/start/topics/examples/server_blocks/
-https://docs.nginx.com/nginx/admin-guide/web-server/reverse-proxy/
+Links:
 
-nginx.conf
+* https://www.nginx.com/resources/wiki/start/topics/examples/server_blocks/
+* https://docs.nginx.com/nginx/admin-guide/web-server/reverse-proxy/
 
+.nginx.conf
 [source]
 ----
     server {

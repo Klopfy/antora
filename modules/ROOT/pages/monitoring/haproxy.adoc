@@ -1,3 +1,7 @@
+= HAProxy
+
+== Installation commands
+
 [source,bash]
 ----
 useradd -m -s /bin/bash haproxy_exporter
@@ -13,8 +17,9 @@ systemctl start haproxy_exporter
 systemctl status haproxy_exporter
 ----
 
-/etc/systemd/system/haproxy_exporter.service
+== Systemd service
 
+./etc/systemd/system/haproxy_exporter.service
 [source,toml]
 ----
 [Unit]
@@ -30,8 +35,9 @@ ExecStart=/home/haproxy_exporter/haproxy_exporter/haproxy_exporter --haproxy.scr
 WantedBy=default.target
 ----
 
-/etc/haproxy/haproxy.cfg
+== HAProxy config
 
+./etc/haproxy/haproxy.cfg
 [source]
 ----
 frontend stats

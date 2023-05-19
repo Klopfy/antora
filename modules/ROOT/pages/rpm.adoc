@@ -1,5 +1,7 @@
 = RPM Package Manager
 
+== Useful commands
+
 * Install a rpm package
 [source,bash]
 ----

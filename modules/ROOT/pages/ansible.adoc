@@ -17,6 +17,6 @@ ansible --version
 ----
 ansible-galaxy init roles/node_exporter
 ansible-playbook -i 00_inventory.yml playbook.yml
-ansible-playbook -i 00_inventory.yml playbook.yml -C –diff
+ansible-playbook -i 00_inventory.yml playbook.yml -C --diff
 ansible-playbook -i 00_inventory.yml playbook.yml -C
 ----
