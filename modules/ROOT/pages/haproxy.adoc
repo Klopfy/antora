@@ -8,7 +8,7 @@ Links:
 == Test video
 
 .Haproxy - 01. What is it ? introduction
-video::inVviPzjIVU[youtube]
+video::inVviPzjIVU/PLn6POgpklwWpOWOqgYItvBrf7Izu-MMQW[youtube, width=640, height=480]
 
 .haproxy.cfg
 [source]
