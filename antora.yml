@@ -1,12 +1,10 @@
-name: doc
-title: doc
+name: Homelab
+title: Homelab
 version: alpha
-start_page: inline-text-formatting.adoc
+start_page: ansible.adoc
 asciidoc:
   attributes:
     source-language: asciidoc@
     table-caption: false
 nav:
 - modules/ROOT/nav.adoc
-
-
