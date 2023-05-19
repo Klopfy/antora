@@ -1,6 +1,6 @@
 name: homelab
 title: Homelab
-version: alpha
+version: main
 start_page: ansible.adoc
 asciidoc:
   attributes:
